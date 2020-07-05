@@ -16,16 +16,12 @@ with open('e:/maoyan.txt', 'a+', encoding='gbk') as article:
 
 bs_info = bs(response.text, 'html.parser')
 
-i = 0
 film_name = ''
 film_type = ''
 plan_date = ''
-for tags in bs_info.find_all('div', attrs={'class': 'movie-hover-info'}):
-    i = i + 1
+for tags in bs_info.find_all('div', attrs={'class': 'movie-hover-info'})[0, 10]:    
     nametag = tags.find('span', attrs={'class': 'name'})
-    film_name = nametag.get_text()
-    print(f'电影名称: {film_name}')
-
+    film_name = nametag.get_text()   
     for divTag in tags.find_all('div', attrs={'class': 'movie-hover-title'}):
         typeTag = divTag.find('span', attrs={'class': 'hover-tag'})
         
@@ -40,5 +36,3 @@ for tags in bs_info.find_all('div', attrs={'class': 'movie-hover-info'}):
     mylist = [f'电影名称: {film_name}', film_type, plan_date]
     movie1 = pd.DataFrame(data = mylist)
     movie1.to_csv('e:/movie3.csv', encoding='gbk', mode = 'a', index=False, header=False)
-    if i == 11:
-        break

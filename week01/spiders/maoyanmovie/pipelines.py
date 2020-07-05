@@ -7,12 +7,11 @@
 
 
 class MaoyanmoviePipeline:
-    def process_item(self, item, spider):
-        print('+++++++++++++++++++++++helpppppppp')
+    def process_item(self, item, spider):        
         film_name = item['film_name']
         film_type = item['film_type']
         plan_date = item['plan_date']
-        output = f'|{film_name}|\t|{film_type}|\t|{plan_date}|\n\n'
-        with open('e:/maoyan.txt', 'a+', encoding='gbk') as article:
+        output = f'{film_name},{film_type},{plan_date},\n\n'
+        with open('e:/maoyan.csv', 'a+', encoding='gbk') as article:
             article.write(output)       
         return item
